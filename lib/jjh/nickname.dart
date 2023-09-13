@@ -1,5 +1,6 @@
 import 'package:bridge/jjh/kakaologin.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class InputNickName extends StatefulWidget {
   const InputNickName({super.key});
@@ -28,10 +29,10 @@ class _InputNickNameState extends State<InputNickName> {
 
   callhim() {
     if (_formKey.currentState!.validate()) {
-      print("${_formKey.currentState!.validate()}");
+      // print("${_formKey.currentState!.validate()}");
       return true;
     } else {
-      print("${_formKey.currentState!.validate()}");
+      // print("${_formKey.currentState!.validate()}");
       return false;
     }
   }
@@ -42,13 +43,20 @@ class _InputNickNameState extends State<InputNickName> {
   late FocusNode focusnode1;
   // _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length))
   bool onError = false;
+  bool start = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     focusnode1 = FocusNode();
+    // FocusScope.of(context).unfocus();
     focusnode1.addListener(() {
-      print("${focusnode1.hasFocus}");
+      if (focusnode1.hasFocus == false) {
+        setState(() {
+        start = true;
+      });};
+      callhim();
+      // print("${focusnode1.hasFocus}");
     });
   }
 
@@ -69,18 +77,24 @@ class _InputNickNameState extends State<InputNickName> {
               SizedBox(
                 height: GetRealHeight(pixel: 65, context: context),
               ),
-              Row(
-                children: [
-                  // Image(image: AssetImage("assets/images/image1.png")),
-                  Text(
-                    "뒤로가기",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Pretendard",
-                        fontWeight: FontWeight.w300,
-                        fontSize: 16),
-                  ),
-                ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Image(image: AssetImage("assets/images/leftvector.png")),
+                    SizedBox(width: GetRealWidth(pixel: 3, context: context),),
+                    Text(
+                      "뒤로가기",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Pretendard",
+                          fontWeight: FontWeight.w300,
+                          fontSize: 16),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: GetRealHeight(pixel: 34, context: context),
@@ -126,8 +140,8 @@ class _InputNickNameState extends State<InputNickName> {
                     children: [
                       Form(
                         key: _formKey,
-                        // autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
+                          // autovalidateMode: AutovalidateMode.always,
                           focusNode: focusnode1,
                           // TextSelection.fromPosition(TextPosition(offset: editContent.text.length)),
                           controller: _controller,
@@ -201,21 +215,8 @@ class _InputNickNameState extends State<InputNickName> {
                       //         ? Container()
                       //         : Container()), // ㅋㅋㅋ 이거뭐임ㅋㅋㅋ
                       // focusnode1.hasFocus ? null : callhim(),
-                      onError
+                      start ? !onError
                           ? Row(
-                              children: [
-                                Text(
-                                  "입력점 해주세요",
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(255, 0, 0, 1),
-                                    fontSize: 12,
-                                    fontFamily: "Pretendard",
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Row(
                               children: [
                                 Text(
                                   "일치하긴 하네",
@@ -227,7 +228,21 @@ class _InputNickNameState extends State<InputNickName> {
                                   ),
                                 ),
                               ],
-                            ),
+                            ) :
+                          Row(
+                              children: [
+                                Text(
+                                  "입력점 해주세요",
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(255, 0, 0, 1),
+                                    fontSize: 12,
+                                    fontFamily: "Pretendard",
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ) : Container(),
+                          
                     ],
                   )),
               SizedBox(
