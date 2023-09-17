@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
                     ? Row(
                         children: [
                           Text(
-                            "입력점 해주세요",
+                            "유효하지 않은 닉네임입니다",
                             style: TextStyle(
                               color: Color.fromRGBO(255, 0, 0, 1),
                               fontSize: 12,
@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
                     : Row(
                         children: [
                           Text(
-                            "일치하긴 하네",
+                            "멋진 닉네임이네요!",
                             style: TextStyle(
                               color: Color.fromRGBO(51, 255, 0, 1),
                               fontFamily: "Pretendard",
@@ -171,6 +171,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),
-    ));
+    ),
+    );
   }
 }

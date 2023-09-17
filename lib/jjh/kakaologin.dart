@@ -1,17 +1,7 @@
 // 하이팅
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-
-void main() {
-  KakaoSdk.init(nativeAppKey: '49397fc59187797afb11e7d5ea37345a');
-  runApp(MaterialApp(
-    home: KaKaoLOGIN(),
-  ));
-}
 
 // 카카오 로그인 구현 예제
 
@@ -50,6 +40,7 @@ if (await isKakaoTalkInstalled()) {
   }
 }
 }
+
 kakologout() async{
   try {
   await UserApi.instance.logout();
@@ -58,24 +49,3 @@ kakologout() async{
   print('로그아웃 실패, SDK에서 토큰 삭제 $error');
 }
 }
-class KaKaoLOGIN extends StatefulWidget {
-  const KaKaoLOGIN({super.key});
-
-  @override
-  State<KaKaoLOGIN> createState() => _KaKaoLOGINState();
-}
-
-class _KaKaoLOGINState extends State<KaKaoLOGIN> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-          child: OutlinedButton(onPressed: () {kako();}, child: Text("레슻고")),
-        ),
-      ),
-    );
-  }
-}
-
-
