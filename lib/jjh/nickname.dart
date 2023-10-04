@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bridge/jjh/kakaologin.dart';
 import 'package:bridge/jjh/month.dart';
 import 'package:bridge/jjh/monthlist.dart';
+import 'package:bridge/msp/SignIn_Creator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -544,15 +545,20 @@ class _InputNickNameState extends State<InputNickName> with TickerProviderStateM
                     ),
                   ),
                   // Text("${selectedmonth}",style: TextStyle(color: Colors.white),),
-                  Center(
-                    child: Text(
-                      "크리에이터 회원이신가요?",
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.white,
-                          fontFamily: "Pretendard",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const InputFirstPage()));
+                    },
+                    child: Center(
+                      child: Text(
+                        "크리에이터 회원이신가요?",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.white,
+                            fontFamily: "Pretendard",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      ),
                     ),
                   ),
                   // OutlinedButton(

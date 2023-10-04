@@ -1,15 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:project_cinderella_test3/msp/login.dart';
-import 'package:project_cinderella_test3/msp/viewstyle.dart';
+import 'package:bridge/msp/viewstyle.dart';
 import 'package:http/http.dart' as http;
-import 'package:webview_flutter/webview_flutter.dart';
-const SIZE_FIGMA_WIDTH = 393;
-const SIZE_FIGMA_HEIGHT = 852;
+
+const SIZE_FIGMA_WIDTH = 390;
+const SIZE_FIGMA_HEIGHT = 844;
 
 Container MakeContainer(double? myWidth, double? myHeight) {
   return Container(
@@ -22,14 +18,14 @@ Container MakeContainer(double? myWidth, double? myHeight) {
 //Return Real Width from Figma's Widget width
 double GetRealWidth({required double pixel, required BuildContext context, })
 {
-  double PX = MediaQuery.of(context).size.width / 393;
+  double PX = MediaQuery.of(context).size.width / SIZE_FIGMA_WIDTH;
   return pixel * PX;
 }
 
 //Return Real Height from Figma's Widget height
 double GetRealHeight({required double pixel, required BuildContext context, })
 {
-  double PX = MediaQuery.of(context).size.height / 852;
+  double PX = MediaQuery.of(context).size.height / SIZE_FIGMA_HEIGHT;
   return pixel * PX;
 }
 
@@ -44,7 +40,7 @@ EdgeInsetsGeometry RealLTRB({required double left, required double top, required
   return EdgeInsets.fromLTRB(GetRealWidth(pixel: left, context: context),GetRealHeight(pixel: top, context: context),GetRealWidth(pixel: right, context: context),GetRealHeight(pixel: bottom, context: context));
 }
 
-TextStyle SimpleTextStyle({required double size, Color color = colorBlack, String family = 'Pretendard', FontWeight weight = FontWeight.w400})
+TextStyle SimpleTextStyle({required double size, Color color = colorWhite, String family = 'Pretendard', FontWeight weight = FontWeight.w400})
 {
   return TextStyle(
     color: color,
@@ -56,10 +52,10 @@ TextStyle SimpleTextStyle({required double size, Color color = colorBlack, Strin
 }
 
 
-void MakeToast({required String msg})
-{
-  Fluttertoast.showToast(msg: msg);
-}
+// void MakeToast({required String msg})
+// {
+//   Fluttertoast.showToast(msg: msg);
+// }
 
 
 
@@ -214,60 +210,60 @@ class _ToggleButtonsSampleState extends State<ToggleButtonsSample> {
     );
   }
 }
-final notifications = FlutterLocalNotificationsPlugin();
-
-//1. 앱로드시 실행할 기본설정
-initNotification() async {
-
-  //안드로이드용 아이콘파일 이름
-  var androidSetting = AndroidInitializationSettings('@drawable/app_icon');
-
-  //ios에서 앱 로드시 유저에게 권한요청하려면
-  var iosSetting = IOSInitializationSettings(
-    requestAlertPermission: true,
-    requestBadgePermission: true,
-    requestSoundPermission: true,
-  );
-
-  var initializationSettings = InitializationSettings(
-      android: androidSetting,
-      iOS: iosSetting
-  );
-  await notifications.initialize(
-    initializationSettings,
-    //알림 누를때 함수실행하고 싶으면
-    //onSelectNotification: 함수명추가
-  );
-
-
-  print("Init Notification!");
-}
-
-//Show Notification
-showNotification() async {
-
-  var androidDetails = AndroidNotificationDetails(
-    '유니크한 알림 채널 ID',
-    '알림종류 설명',
-    priority: Priority.high,
-    importance: Importance.max,
-    color: Colors.black,
-  );
-
-  var iosDetails = IOSNotificationDetails(
-    presentAlert: true,
-    presentBadge: true,
-    presentSound: true,
-  );
-
-  notifications.show(
-      1,
-      '신데렐라',
-      '(대충 알림이 간다는 내용)',
-      NotificationDetails(android: androidDetails, iOS: iosDetails)
-  );
-  print(notifications);
-}
+// final notifications = FlutterLocalNotificationsPlugin();
+//
+// //1. 앱로드시 실행할 기본설정
+// initNotification() async {
+//
+//   //안드로이드용 아이콘파일 이름
+//   var androidSetting = AndroidInitializationSettings('@drawable/app_icon');
+//
+//   //ios에서 앱 로드시 유저에게 권한요청하려면
+//   var iosSetting = IOSInitializationSettings(
+//     requestAlertPermission: true,
+//     requestBadgePermission: true,
+//     requestSoundPermission: true,
+//   );
+//
+//   var initializationSettings = InitializationSettings(
+//       android: androidSetting,
+//       iOS: iosSetting
+//   );
+//   await notifications.initialize(
+//     initializationSettings,
+//     //알림 누를때 함수실행하고 싶으면
+//     //onSelectNotification: 함수명추가
+//   );
+//
+//
+//   print("Init Notification!");
+// }
+//
+// //Show Notification
+// showNotification() async {
+//
+//   var androidDetails = AndroidNotificationDetails(
+//     '유니크한 알림 채널 ID',
+//     '알림종류 설명',
+//     priority: Priority.high,
+//     importance: Importance.max,
+//     color: Colors.black,
+//   );
+//
+//   var iosDetails = IOSNotificationDetails(
+//     presentAlert: true,
+//     presentBadge: true,
+//     presentSound: true,
+//   );
+//
+//   notifications.show(
+//       1,
+//       '신데렐라',
+//       '(대충 알림이 간다는 내용)',
+//       NotificationDetails(android: androidDetails, iOS: iosDetails)
+//   );
+//   print(notifications);
+// }
 
 void CallSnackBar(BuildContext context, {String text = '택시팟에 참가했어요!'})
 {
