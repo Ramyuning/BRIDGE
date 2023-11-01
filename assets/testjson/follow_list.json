@@ -1,0 +1,25 @@
+{
+    "follows": [
+          {
+              "creator_id": 18,
+              "creator_name": "크리에이터 이름1",
+              "profile_img": "https://upload.wikimedia.org/wikipedia/ko/4/4a/%EC%8B%A0%EC%A7%B1%EA%B5%AC.png",  
+              "follower_count": 1000,
+            "call_status": true
+          },
+          {
+              "creator_id": 21,
+              "creator_name": "크리에이터 이름2",
+              "profile_img": "https://upload.wikimedia.org/wikipedia/ko/4/4a/%EC%8B%A0%EC%A7%B1%EA%B5%AC.png",  
+              "follower_count": 10000,
+            "call_status": false
+          },
+          {
+              "creator_id": 45,
+              "creator_name": "크리에이터 이름3",
+              "profile_img": "https://upload.wikimedia.org/wikipedia/ko/4/4a/%EC%8B%A0%EC%A7%B1%EA%B5%AC.png",  
+              "follower_count": 100000,
+            "call_status": false
+          }
+      ]
+  }

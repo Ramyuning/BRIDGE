@@ -1,5 +1,8 @@
+import 'package:bridge/jjh/callrecord_user.dart';
 import 'package:bridge/jjh/firstpage.dart';
-import 'package:bridge/jjh/inputtext.dart';
+import 'package:bridge/jjh/followed_creator_page.dart';
+import 'package:bridge/jjh/mypage.dart';
+// import 'package:bridge/jjh/inputtext.dart';
 import 'package:bridge/jjh/nickname.dart';
 import 'package:bridge/jjh/test.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +18,6 @@ void main() async{
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: FirstPage(),
+    home: InputNickName(),
   ));
 }
