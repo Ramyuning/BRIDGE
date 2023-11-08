@@ -1,5 +1,4 @@
-{
-    "follows": [
+[
           {
               "creator_id": 18,
               "creator_name": "크리에이터 이름1",
@@ -22,4 +21,3 @@
             "call_status": false
           }
       ]
-  }

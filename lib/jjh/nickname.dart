@@ -92,13 +92,11 @@ class _InputNickNameState extends State<InputNickName>
     print(res.statusCode);
   }
 
+  String autherization_http = dotenv.get("Authorization");
   final _formKey = GlobalKey<FormState>();
   String nickname = "";
-  String autherization_http = dotenv.get("Authorization");
-  
   var _controller = TextEditingController();
   late FocusNode focusnode1;
-  // _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length))
   bool onError = false;
   bool start = false;
   bool focus_month = false;
@@ -156,8 +154,8 @@ class _InputNickNameState extends State<InputNickName>
     print(Currentyear);
     selectedyear = Currentyear;
     super.initState();
+    //여기 갖져가
     focusnode1 = FocusNode();
-    // FocusScope.of(context).unfocus();
     focusnode1.addListener(() {
       if (focusnode1.hasFocus == false) {
         setState(() {

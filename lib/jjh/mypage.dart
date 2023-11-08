@@ -1,7 +1,10 @@
 // import 'package:bridge/msp/functions.dart';
 import 'package:bridge/jjh/callrecord_user.dart';
+import 'package:bridge/jjh/edit_profile_user.dart';
 import 'package:bridge/jjh/followed_creator_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Followed_creator extends StatelessWidget {
   late double height_PX;
@@ -68,7 +71,7 @@ class _MyPage_userState extends State<MyPage_user> {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -191,6 +194,7 @@ class _MyPage_userState extends State<MyPage_user> {
                                     GestureDetector(
                                       onTap: () {
                                         print("프로필 편집 눌리;ㅁ");
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Profile_User()));
                                       },
                                       child: Container(
                                           width: GetRealWidth(
@@ -416,8 +420,9 @@ class _MyPage_userState extends State<MyPage_user> {
                             ),
                             Center(
                                 child: Container(
-                              width: 110,
-                              height: 110,
+                              width: GetRealWidth(pixel: 110, context: context),
+                              height: GetRealHeight(pixel: 110, context: context),
+                              child: FittedBox(fit: BoxFit.fill,child: Icon(CupertinoIcons.person_fill,)),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                             )),

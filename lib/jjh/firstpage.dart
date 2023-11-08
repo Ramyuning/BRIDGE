@@ -1,5 +1,6 @@
 import 'package:bridge/jjh/nickname.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'kakaologin.dart';
 
@@ -31,6 +32,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return Scaffold(
       body: Container(
         height: double.infinity,
