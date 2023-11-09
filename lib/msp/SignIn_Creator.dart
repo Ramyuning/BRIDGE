@@ -1,4 +1,5 @@
-
+import 'package:bridge/jjh/date.dart';
+import 'package:bridge/jjh/datelist.dart';
 import 'package:bridge/msp/Classes.dart';
 import 'package:flutter/material.dart';
 import 'package:bridge/msp/functions.dart';
@@ -227,6 +228,8 @@ class _InputFirstPageState extends State<InputFirstPage> {
   bool onError = false;
   bool start = false;
   bool start2 = false;
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -300,7 +303,7 @@ class _InputFirstPageState extends State<InputFirstPage> {
                           // autovalidateMode: AutovalidateMode.always,
                           focusNode: focusnode1,
                           // TextSelection.fromPosition(TextPosition(offset: editContent.text.length)),
-                          controller: _controller2,
+                          controller: _controller,
                           // TextEditingController(text: dest,),
                           // onTap: () {_controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));},
                           onChanged: (val) {
@@ -406,7 +409,7 @@ class _InputFirstPageState extends State<InputFirstPage> {
                           // autovalidateMode: AutovalidateMode.always,
                           focusNode: focusnode2,
                           // TextSelection.fromPosition(TextPosition(offset: editContent.text.length)),
-                          controller: _controller,
+                          controller: _controller2,
                           // TextEditingController(text: dest,),
                           // onTap: () {_controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));},
                           onChanged: (val) {
@@ -494,7 +497,7 @@ class _InputFirstPageState extends State<InputFirstPage> {
                     ],
                   )),
               SizedBox(
-                height: GetRealHeight(pixel: 37, context: context),
+                height: GetRealHeight(pixel: 15, context: context),
               ),
               //생년월일
               Row(
@@ -509,6 +512,7 @@ class _InputFirstPageState extends State<InputFirstPage> {
                   ),
                 ],
               ),
+              RealSizedBox(width: 0, height: 9),
               Container(
                 height: GetRealHeight(pixel: 45, context: context),
                 width: double.maxFinite,
@@ -590,6 +594,8 @@ class _InputFirstPageState extends State<InputFirstPage> {
                 decoration: BoxDecoration(color: Colors.black),
                 child: Row(
                   children: [
+                    YearSelector(onDateTimeChanged: (int a){}, yearlist: return_year(2023), height: 50),
+
                     Container(
                       height: GetRealHeight(pixel: 45, context: context),
                       width: GetRealWidth(pixel: 102, context: context),
