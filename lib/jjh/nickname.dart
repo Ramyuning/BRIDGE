@@ -343,12 +343,6 @@ class _InputNickNameState extends State<InputNickName>
                           SizedBox(
                             height: 9,
                           ),
-                          // focusnode1.hasFocus
-                          //     ? Container()
-                          //     : (_formKey.currentState!.validate()
-                          //         ? Container()
-                          //         : Container()), // ㅋㅋㅋ 이거뭐임ㅋㅋㅋ
-                          // focusnode1.hasFocus ? null : callhim(),
                           start
                               ? !onError
                                   ? Row(
