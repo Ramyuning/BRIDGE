@@ -63,7 +63,7 @@ class YearSelector extends StatelessWidget {
 
   final void Function(int) onDateTimeChanged;
   final FixedExtentScrollController controller =
-    FixedExtentScrollController(initialItem: 17);
+    FixedExtentScrollController(initialItem: 0);
   final List<String> yearlist;
   final double height;
   @override

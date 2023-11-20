@@ -102,16 +102,11 @@ class _FirstPageState extends State<FirstPage> {
                           fontFamily: "Pretendard",
                           fontWeight: FontWeight.w400,
                           fontSize: 18),
-                    )
+                    ),
                   ],
                 ),
-                // child: Image(
-                //   image: AssetImage("assets/images/image5.png"),
-                //   fit: BoxFit.fill,
-                // ),
               ),
             ),
-            // InkWell(child: Ink.image(image: AssetImage("assets/image/image 5.jpg")),),
           ],
         ),
       ),

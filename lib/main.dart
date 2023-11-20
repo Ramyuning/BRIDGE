@@ -1,7 +1,9 @@
 import 'package:bridge/jjh/callrecord_user.dart';
+import 'package:bridge/jjh/edit_profile_user.dart';
+import 'package:bridge/jjh/finish_page.dart';
 import 'package:bridge/jjh/firstpage.dart';
 import 'package:bridge/jjh/followed_creator_page.dart';
-import 'package:bridge/jjh/mypage.dart';
+import 'package:bridge/jjh/mypage_user.dart';
 // import 'package:bridge/jjh/inputtext.dart';
 import 'package:bridge/jjh/nickname.dart';
 import 'package:bridge/jjh/test.dart';

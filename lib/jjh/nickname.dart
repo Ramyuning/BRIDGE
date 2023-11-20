@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:bridge/jjh/finish_page.dart';
 import 'package:bridge/jjh/kakaologin.dart';
 import 'package:bridge/jjh/date.dart';
 import 'package:bridge/jjh/datelist.dart';
+import 'package:bridge/jjh/mypage_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -61,7 +63,7 @@ class _InputNickNameState extends State<InputNickName>
     }
   }
 
-  Future save(context) async {
+  Future<bool> save(context) async {
     final url = Uri.parse(autherization_http);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? access_token = prefs.getString('access_token');
@@ -75,11 +77,11 @@ class _InputNickNameState extends State<InputNickName>
       focus_year = false;
     });
 
-    print("${nickname},${selectedyear},${selectedday},${selectedmonth}");
+    print("${nickname},${selectedyear+selectedday+selectedmonth},${selectedday},${selectedmonth}");
     print(access_token);
     Map data = {
       'nickname': nickname,
-      'birthday': selectedyear + selectedday + selectedmonth,
+      'birthday': selectedyear +"-"+ selectedmonth +"-"+ selectedday,
     };
     var body = json.encode(data);
     http.Response res = await http.post(
@@ -89,7 +91,12 @@ class _InputNickNameState extends State<InputNickName>
       body: body,
     );
     // print();
-    print(res.statusCode);
+    if (res.statusCode== 200) {
+      return Future<bool>.value(true);
+    }
+    else {
+      return Future<bool>.value(false);
+    }
   }
 
   String autherization_http = dotenv.get("Authorization");
@@ -298,7 +305,7 @@ class _InputNickNameState extends State<InputNickName>
                                   fontWeight: FontWeight.w300),
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: Color.fromRGBO(255, 255, 255, 0.15),
+                                fillColor: Color.fromRGBO(255, 255, 255, 0.05),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(16, 0, 0, 0),
                                 errorStyle: TextStyle(
@@ -325,7 +332,7 @@ class _InputNickNameState extends State<InputNickName>
                                     borderRadius: BorderRadius.circular(8),
                                     borderSide: BorderSide(
                                         color:
-                                            Color.fromRGBO(255, 255, 255, 0.3),
+                                            Color.fromRGBO(118, 44, 255, 1),
                                         width: 1)),
                                 hintText: "ex) 방구석 백수",
                                 hintStyle: TextStyle(
@@ -418,8 +425,13 @@ class _InputNickNameState extends State<InputNickName>
                                   setState(() {
                                     if (focus_year == true) {
                                       focus_year = false;
+                                      _animation_controller.reverse();
                                     } else {
                                       focus_year = true;
+                                      focus_month = false;
+                                      focus_day = false;
+                          _day_animation_controller.reverse();
+                          _month_animation_controller.reverse();
                                     }
                                     _animation_controller.forward();
                                   });
@@ -431,8 +443,8 @@ class _InputNickNameState extends State<InputNickName>
                                       pixel: 102, context: context),
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color: Color.fromRGBO(
-                                              255, 255, 255, 0.3),
+                                          color: Color.fromRGBO(255, 255, 255, 0.3),
+                                        // color : Color.fromRGBO(118, 44, 255, 1),
                                           width: 1),
                                       color:
                                           Color.fromRGBO(255, 255, 255, 0.15),
@@ -468,8 +480,14 @@ class _InputNickNameState extends State<InputNickName>
                                   setState(() {
                                     if (focus_month == true) {
                                       focus_month = false;
+                                      _month_animation_controller.reverse();
                                     } else {
                                       focus_month = true;
+                                      focus_day = false;
+                                      focus_year = false;
+                                      _day_animation_controller.reverse();
+                            
+                                      _animation_controller.reverse();
                                     }
                                     _month_animation_controller.forward();
                                   });
@@ -518,8 +536,15 @@ class _InputNickNameState extends State<InputNickName>
                                   setState(() {
                                     if (focus_day == true) {
                                       focus_day = false;
+                                      _day_animation_controller.reverse();
+                                      
                                     } else {
                                       focus_day = true;
+                                      focus_month = false;
+                                      focus_year = false;
+                                      _animation_controller.reverse();
+                                      
+                                      _month_animation_controller.reverse();
                                     }
                                     _day_animation_controller.forward();
                                   });
@@ -564,10 +589,13 @@ class _InputNickNameState extends State<InputNickName>
                         Positioned(
                           top: GetRealHeight(pixel: 150, context: context),
                           child: InkWell(
-                            onTap: () {
+                            onTap: () async {
                               callhim();
                               if (!onError && !(nickname == "")) {
-                                save(context);
+                                Future<bool> asdf = save(context);
+                                if (await asdf) {
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => Finish_Page())); 
+                                }
                               } else {
                                 setState(() {
                                   focus_day = false;
@@ -583,7 +611,8 @@ class _InputNickNameState extends State<InputNickName>
                               height:
                                   GetRealHeight(pixel: 45, context: context),
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(55, 29, 156, 1),
+                                  // color: Color.fromRGBO(55, 29, 156, 1),
+                                  color:Color(0xff5800FF),
                                   borderRadius: BorderRadius.circular(30)),
                               child: Center(
                                 child: Text(

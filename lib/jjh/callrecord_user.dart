@@ -173,7 +173,6 @@ class _Call_Record_PageState extends State<Call_Record_Page> {
                       Container(
                         width: GetRealWidth(pixel: 128, context: context),
                         height: GetRealWidth(pixel: 29, context: context),
-                        decoration: BoxDecoration(color: Colors.white),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -182,13 +181,14 @@ class _Call_Record_PageState extends State<Call_Record_Page> {
                               width: GetRealWidth(pixel: 63, context: context),
                               height:
                                   GetRealHeight(pixel: 27, context: context),
-                              decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(GetRealWidth(pixel: 5, context: context))),child: Center(child: Text("안뇽")),
+                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.7),borderRadius: BorderRadius.circular(GetRealWidth(pixel: 5, context: context))),child: Center(child: Text("전체")),
                             ),
                             Container(
                               width: GetRealWidth(pixel: 63, context: context),
                               height:
                                   GetRealHeight(pixel: 27, context: context),
-                              decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(GetRealWidth(pixel: 5, context: context))),
+                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.3),borderRadius: BorderRadius.circular(GetRealWidth(pixel: 5, context: context))),
+                              child: Center(child: Text("부재중")),
                             ),
                           ],
                         ),
