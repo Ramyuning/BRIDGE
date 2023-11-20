@@ -75,6 +75,7 @@ flutter:
     - assets/images/app_icon/
     - assets/images/firstpage/
     - assets/images/inputnickname/
+    - assets/images/mypage/
     - assets/config/.env
     - assets/testjson/follow_list.json
   #   - images/a_dot_burr.jpeg
