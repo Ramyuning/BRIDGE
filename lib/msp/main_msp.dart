@@ -8,6 +8,6 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.white));
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Mypage_Creator(),
+    home: MyPage_Creator(),
   ));
 }
