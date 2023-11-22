@@ -1,15 +1,12 @@
 import 'dart:convert';
 
 import 'package:bridge/jjh/finish_page.dart';
-import 'package:bridge/jjh/kakaologin.dart';
 import 'package:bridge/jjh/date.dart';
 import 'package:bridge/jjh/datelist.dart';
-import 'package:bridge/jjh/mypage_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InputNickName extends StatefulWidget {
@@ -112,6 +109,7 @@ class _InputNickNameState extends State<InputNickName>
   late String Currentyear;
   late String selectedyear;
   late List<String> year;
+  dynamic register_color = Color.fromRGBO(55, 29, 156, 1);
 
   @override
   void initState() {
@@ -124,7 +122,7 @@ class _InputNickNameState extends State<InputNickName>
     );
     _animation = CurvedAnimation(
       parent: _animation_controller,
-      curve: Curves.easeIn,
+      curve: Curves.ease,
     );
     _animation.addListener(() {
       setState(() {});
@@ -136,7 +134,7 @@ class _InputNickNameState extends State<InputNickName>
     );
     _month_animation = CurvedAnimation(
       parent: _month_animation_controller,
-      curve: Curves.easeIn,
+      curve: Curves.ease,
     );
     _month_animation.addListener(() {
       setState(() {});
@@ -148,7 +146,7 @@ class _InputNickNameState extends State<InputNickName>
     );
     _day_animation = CurvedAnimation(
       parent: _day_animation_controller,
-      curve: Curves.easeIn,
+      curve: Curves.ease,
     );
     _day_animation.addListener(() {
       setState(() {});
@@ -543,7 +541,6 @@ class _InputNickNameState extends State<InputNickName>
                                       focus_month = false;
                                       focus_year = false;
                                       _animation_controller.reverse();
-                                      
                                       _month_animation_controller.reverse();
                                     }
                                     _day_animation_controller.forward();
@@ -592,6 +589,7 @@ class _InputNickNameState extends State<InputNickName>
                             onTap: () async {
                               callhim();
                               if (!onError && !(nickname == "")) {
+                                
                                 Future<bool> asdf = save(context);
                                 if (await asdf) {
                                  Navigator.push(context,MaterialPageRoute(builder: (context) => Finish_Page())); 
@@ -612,7 +610,7 @@ class _InputNickNameState extends State<InputNickName>
                                   GetRealHeight(pixel: 45, context: context),
                               decoration: BoxDecoration(
                                   // color: Color.fromRGBO(55, 29, 156, 1),
-                                  color:Color(0xff5800FF),
+                                  color: start ? !onError? Color(0xff5800FF) : Color.fromRGBO(55, 29, 156, 1): Color.fromRGBO(55, 29, 156, 1),
                                   borderRadius: BorderRadius.circular(30)),
                               child: Center(
                                 child: Text(
@@ -642,6 +640,7 @@ class _InputNickNameState extends State<InputNickName>
                                       color: Color.fromRGBO(54, 54, 54, 1),
                                       borderRadius: BorderRadius.circular(9)),
                                   child: YearSelector(
+
                                     height: GetRealHeight(
                                         pixel: 10, context: context),
                                     yearlist: year,
@@ -669,6 +668,7 @@ class _InputNickNameState extends State<InputNickName>
                                       color: Color.fromRGBO(54, 54, 54, 1),
                                       borderRadius: BorderRadius.circular(9)),
                                   child: MonthSelector(
+
                                     height: GetRealHeight(
                                         pixel: 10, context: context),
                                     monthlist: month,
@@ -696,6 +696,7 @@ class _InputNickNameState extends State<InputNickName>
                                       color: Color.fromRGBO(54, 54, 54, 1),
                                       borderRadius: BorderRadius.circular(9)),
                                   child: DaySelector(
+
                                     height: GetRealHeight(
                                         pixel: 10, context: context),
                                     daylist: day,

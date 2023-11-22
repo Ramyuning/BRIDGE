@@ -10,7 +10,7 @@ class Http_Circle extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(color: Colors.black),
-        child: Center(child: Text("잠시만용 ㅠㅠ",style: TextStyle(color: Colors.white),),),
+        child: Center(child: Text("잠시만용 ㅠㅠ",style: TextStyle(color: Colors.white,fontSize: 17),),),
       ),
     );
   }

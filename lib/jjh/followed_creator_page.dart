@@ -37,6 +37,7 @@ Future<List> fetchInfo(url) async {
 
 // 내가 팔로우한 크리에이터 리스트 항목 Class //
 
+// ignore: camel_case_types, must_be_immutable
 class Followed_Creator_Class extends StatelessWidget {
   late double height_PX;
   late double width_PX;
@@ -139,7 +140,6 @@ class _Followed_Creator_PageState extends State<Followed_Creator_Page> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dynamic follow_json = fetchInfo("123");
   }
 
   @override

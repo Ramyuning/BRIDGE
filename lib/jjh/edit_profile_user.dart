@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:bridge/jjh/generator_class/userinfo_convert.dart';
 import 'package:bridge/jjh/http_circle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'generator_class/follow_list_convert.dart';
-import 'mypage_user.dart';
 
 class Edit_Profile_User extends StatefulWidget {
   const Edit_Profile_User({super.key});
@@ -99,7 +95,7 @@ class _Edit_Profile_UserState extends State<Edit_Profile_User> {
     // setState(() {
     //     offset = _getOffset();
     //   });
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         offset = _getOffset();
       });
