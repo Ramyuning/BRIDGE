@@ -258,7 +258,9 @@ class _InputFirstPageState extends State<InputFirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body:SingleChildScrollView
+        (child:
+      Container(
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(color: Colors.black),
@@ -665,6 +667,7 @@ class _InputFirstPageState extends State<InputFirstPage> {
           ),
         ),
       ),
+    )
     );
   }
 }

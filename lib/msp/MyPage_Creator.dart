@@ -1,3 +1,4 @@
+import 'package:bridge/jjh/finish_page.dart';
 import 'package:bridge/msp/Classes.dart';
 import 'package:flutter/material.dart';
 import 'package:bridge/msp/functions.dart';
@@ -7,15 +8,23 @@ import 'package:bridge/jjh/followed_creator_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:bridge/msp/Webview.dart';
 
 class Link_SocialPage extends StatelessWidget
 {
+  String reqURL = 'http://www.youtube.com/';
+  Link_SocialPage(String url)
+  {
+    reqURL = url;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         print("Link Clicked!");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewScreen(reqURL)));
       },
       child: Container(
         height: GetRealHeight(pixel: 50, context: context),
@@ -42,38 +51,81 @@ class _StateIndicatorState extends State<StateIndicator> {
   }
 }
 
-class Followed_creator extends StatelessWidget {
-  late double height_PX;
-  late double width_PX;
-  Followed_creator({super.key, required double height, required double width}) {
-    height_PX = height;
-    width_PX = width;
+class Edit_Profile_Creator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Text("프로필 편집",  style: SimpleTextStyle(size: 15)),
+      ),
+    );
   }
+}
+class Page_Call_Rules extends StatelessWidget {
+
+  String _currentRulesText = '';
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height_PX * 150,
-      width: width_PX * 122,
-      child: Column(
-        children: [
-          Container(
-            height: height_PX * 122,
-            width: height_PX * 122,
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(217, 217, 217, 1),
-                borderRadius: BorderRadius.circular(8)),
+
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: statusBarHeight,
+        ),
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          color: Colors.black,
+          child: Column(
+            children: [
+              GoBackButton(),
+              Text(
+                "통화규칙",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Pretendard",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                ),
+              ),
+              Container(
+                width: GetRealWidth(pixel: 350, context: context),
+                height: GetRealHeight(pixel: 280, context: context),
+                color: Colors.white,
+              child: TextField(),
+              ),
+              GestureDetector(
+                onTap: () {
+                  print("입력 완료");
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    width: GetRealWidth(
+                        pixel: 350, context: context),
+                    height: GetRealHeight(
+                        pixel: 45, context: context),
+                    decoration: BoxDecoration(
+                        color:
+                        Color.fromRGBO(88, 0, 255, 1),
+                        borderRadius:
+                        BorderRadius.circular(20)),
+                    child: Center(
+                      child: Text(
+                        "완료",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Pretendard",
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )),
+              ),
+            ],
           ),
-          Text(
-            "크리에이터",
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Pretendard",
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -233,11 +285,11 @@ class MyPage_CreatorState extends State<MyPage_Creator> {
                                       Row(
                                         children: [
                                           RealSizedBox(width: 80, height: 0),
-                                          Link_SocialPage(),
+                                          Link_SocialPage(URL_YOUTUBE),
                                           RealSizedBox(width: 40, height: 0),
-                                          Link_SocialPage(),
+                                          Link_SocialPage(URL_INSTAGRAM),
                                           RealSizedBox(width: 40, height: 0),
-                                          Link_SocialPage(),
+                                          Link_SocialPage(URL_TWITCH),
                                         ],
                                       ),
                                     ),
@@ -248,7 +300,7 @@ class MyPage_CreatorState extends State<MyPage_Creator> {
                                     GestureDetector(
                                       onTap: () {
                                         print("프로필 편집 눌리;ㅁ");
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Profile_User()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Profile_Creator()));
                                       },
                                       child: Container(
                                           width: GetRealWidth(
@@ -284,340 +336,7 @@ class MyPage_CreatorState extends State<MyPage_Creator> {
                                       height: GetRealHeight(
                                           pixel: 25, context: context),
                                     ),
-                                    SizedBox(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: GetRealWidth(
-                                                pixel: 19, context: context)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              child: Text(
-                                                "나의 상태",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: GetRealHeight(
-                                          pixel: 12, context: context),
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      color: Colors.grey,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset('assets/images/mypage/status_green_circle.png'),
-                                          Text(
-                                            "통화가능 (온라인)",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: "Pretendard",
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          SimpleSwitch(),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: GetRealHeight(
-                                          pixel: 10, context: context),
-                                    ),
-                                    Container(
-                                        width: GetRealWidth(
-                                            pixel: 352, context: context),
-                                        child: Divider(
-                                            color: Colors.white30,
-                                            thickness: 2.0)),
-                                    SizedBox(
-                                      height: GetRealHeight(
-                                          pixel: 20, context: context),
-                                    ),
-                                    //// 여기서 부턴 통화기록 //////
-                                    SizedBox(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: GetRealWidth(
-                                                pixel: 19, context: context)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              child: Text(
-                                                "통화유형 (음성, 영상 중 1택)",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: GetRealHeight(
-                                          pixel: 12, context: context),
-                                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            print("음성");
-                          },
-                          child: Container(
-                              width: GetRealWidth(
-                                  pixel: 150, context: context),
-                              height: GetRealHeight(
-                                  pixel: 60, context: context),
-                              decoration: BoxDecoration(
-                                  color:
-                                  Color.fromRGBO(88, 0, 255, 1),
-                                  borderRadius:
-                                  BorderRadius.circular(20)),
-                              child: Center(
-                                child: Text(
-                                  "음성",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Pretendard",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              )),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            print("영상");
-                          },
-                          child: Container(
-                              width: GetRealWidth(
-                                  pixel: 150, context: context),
-                              height: GetRealHeight(
-                                  pixel: 60, context: context),
-                              decoration: BoxDecoration(
-                                  color:
-                                  Color.fromRGBO(88, 0, 255, 1),
-                                  borderRadius:
-                                  BorderRadius.circular(20)),
-                              child: Center(
-                                child: Text(
-                                  "영상",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Pretendard",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                                    RealSizedBox(width: 0, height: 50),
-                                    //// 여기서 부턴 통화 //////
-                                    SizedBox(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: GetRealWidth(
-                                                pixel: 19, context: context)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              child: Text(
-                                                "통화시간",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: GetRealHeight(
-                                          pixel: 12, context: context),
-                                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            print("음성");
-                          },
-                          child: Container(
-                              width: GetRealWidth(
-                                  pixel: 150, context: context),
-                              height: GetRealHeight(
-                                  pixel: 60, context: context),
-                              decoration: BoxDecoration(
-                                  color:
-                                  Color.fromRGBO(88, 0, 255, 1),
-                                  borderRadius:
-                                  BorderRadius.circular(20)),
-                              child: Center(
-                                child: Text(
-                                  "음성",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Pretendard",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              )),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            print("영상");
-                          },
-                          child: Container(
-                              width: GetRealWidth(
-                                  pixel: 150, context: context),
-                              height: GetRealHeight(
-                                  pixel: 60, context: context),
-                              decoration: BoxDecoration(
-                                  color:
-                                  Color.fromRGBO(88, 0, 255, 1),
-                                  borderRadius:
-                                  BorderRadius.circular(20)),
-                              child: Center(
-                                child: Text(
-                                  "영상",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Pretendard",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                                    SizedBox(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: GetRealWidth(
-                                                pixel: 19, context: context)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              child: Text(
-                                                "통화권가격",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    TextField(
-                                      
-                                    ),
-                                    SizedBox(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: GetRealWidth(
-                                                pixel: 19, context: context)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              child: Text(
-                                                "통화규칙",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        print("프로필 편집 눌리;ㅁ");
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Profile_User()));
-                                      },
-                                      child: Container(
-                                          width: GetRealWidth(
-                                              pixel: 350, context: context),
-                                          height: GetRealHeight(
-                                              pixel: 45, context: context),
-                                          decoration: BoxDecoration(
-                                              color:
-                                              Color.fromRGBO(88, 0, 255, 1),
-                                              borderRadius:
-                                              BorderRadius.circular(20)),
-                                          child: Center(
-                                            child: Text(
-                                              "통화규칙",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          )),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        print("프로필 편집 눌리;ㅁ");
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Profile_User()));
-                                      },
-                                      child: Container(
-                                          width: GetRealWidth(
-                                              pixel: 350, context: context),
-                                          height: GetRealHeight(
-                                              pixel: 45, context: context),
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  Colors.green,
-                                              borderRadius:
-                                              BorderRadius.circular(20)),
-                                          child: Center(
-                                            child: Text(
-                                              "통화시작",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: "Pretendard",
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          )),
-                                    ),
+                                    MyCallStatus(),
                                     SizedBox(
                                       height: GetRealHeight(
                                           pixel: 150, context: context),
@@ -656,6 +375,386 @@ class MyPage_CreatorState extends State<MyPage_Creator> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class MyCallStatus extends StatefulWidget
+{
+  @override
+  State<MyCallStatus> createState() => _MyCallStatusState();
+}
+
+class _MyCallStatusState extends State<MyCallStatus> {
+  @override
+  Widget build(BuildContext context){
+    return Column(
+      children: [
+        SizedBox(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: GetRealWidth(
+                    pixel: 19, context: context)),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Text(
+                    "나의 상태",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: GetRealHeight(
+              pixel: 12, context: context),
+        ),
+        Container(
+          width: GetRealWidth(pixel: 352, context: context),
+          height: GetRealHeight(pixel: 45, context: context),
+
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 255, 255, 0.15),
+            borderRadius: BorderRadius.circular(8)
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: GetRealWidth(pixel: 13, context: context),
+                height: GetRealHeight(pixel: 13, context: context),
+                decoration: BoxDecoration(
+                  color: Colors.lightGreenAccent,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              RealSizedBox(width: 9, height: 0),
+              Text(
+                "통화가능 (온라인)",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Pretendard",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                ),
+              ),
+              RealSizedBox(width: 131, height: 0),
+              SimpleSwitch(),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: GetRealHeight(
+              pixel: 10, context: context),
+        ),
+        Container(
+            width: GetRealWidth(
+                pixel: 352, context: context),
+            child: Divider(
+                color: Colors.white30,
+                thickness: 2.0)),
+        SizedBox(
+          height: GetRealHeight(
+              pixel: 20, context: context),
+        ),
+        //// 여기서 부턴 통화기록 //////
+        SizedBox(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: GetRealWidth(
+                    pixel: 19, context: context)),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Text(
+                    "통화유형 (음성, 영상 중 1택)",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: GetRealHeight(
+              pixel: 12, context: context),
+        ),
+        Call_Type_Selecter(),
+        RealSizedBox(width: 0, height: 50),
+        //// 여기서 부턴 통화 시간//////
+        SizedBox(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: GetRealWidth(
+                    pixel: 19, context: context)),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Text(
+                    "통화시간",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: GetRealHeight(
+              pixel: 12, context: context),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Button_CallDuration("30초"),
+            Button_CallDuration("1분"),
+            Button_CallDuration("3분"),
+          ],
+        ),
+        RealSizedBox(width: 0, height: 7),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Button_CallDuration("5분"),
+            Button_CallDuration("10분"),
+            Button_CallDuration("15분"),
+          ],
+        ),
+        RealSizedBox(width: 0, height: 20),
+        SizedBox(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: GetRealWidth(
+                    pixel: 19, context: context)),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Text(
+                    "통화권가격",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        TextField(
+
+        ),
+        RealSizedBox(width: 0, height: 51),
+        SizedBox(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: GetRealWidth(
+                    pixel: 19, context: context)),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Text(
+                    "통화규칙",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        RealSizedBox(width: 0, height: 20),
+        GestureDetector(
+          onTap: () {
+            print("규칙은 깨지라고 있는 것");
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Page_Call_Rules()));
+          },
+          child: Container(
+              width: GetRealWidth(
+                  pixel: 350, context: context),
+              height: GetRealHeight(
+                  pixel: 45, context: context),
+              decoration: BoxDecoration(
+                  color:
+                  Color.fromRGBO(88, 0, 255, 1),
+                  borderRadius:
+                  BorderRadius.circular(20)),
+              child: Center(
+                child: Text(
+                  "통화규칙",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
+                ),
+              )),
+        ),
+        RealSizedBox(width: 0, height: 69),
+        GestureDetector(
+          onTap: () {
+            print("시작");
+          },
+          child: Container(
+              width: GetRealWidth(
+                  pixel: 350, context: context),
+              height: GetRealHeight(
+                  pixel: 48, context: context),
+              decoration: BoxDecoration(
+                  color:
+                  Colors.green,
+                  borderRadius:
+                  BorderRadius.circular(16)),
+              child: Center(
+                child: Text(
+                  "통화시작",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Pretendard",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
+                ),
+              )),
+        ),
+      ],
+    );
+  }
+}
+
+class Button_CallDuration extends StatelessWidget
+{
+
+  String buttonText = 'Default';
+
+  Button_CallDuration(String text)
+  {
+    buttonText = text;
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        print(buttonText + " pressed!");
+      },
+      child: Container(
+          width: GetRealWidth(
+              pixel: 112, context: context),
+          height: GetRealHeight(
+              pixel: 45, context: context),
+          decoration: BoxDecoration(
+              color:
+              Color.fromRGBO(88, 0, 255, 1),
+              borderRadius:
+              BorderRadius.circular(8)),
+          child: Center(
+            child: Text(
+              buttonText,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Pretendard",
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
+            ),
+          )),
+    );
+  }
+}
+
+class Call_Type_Selecter extends StatefulWidget
+{
+  @override
+  State<Call_Type_Selecter> createState() => _Call_Type_SelecterState();
+}
+
+class _Call_Type_SelecterState extends State<Call_Type_Selecter>
+{
+  int _selectedIndex = -1;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        GestureDetector(
+          onTap: () {
+            print("음성");
+            setState(() {
+              _selectedIndex = 0;
+            });
+          },
+          child: Container(
+              width: GetRealWidth(
+                  pixel: 167, context: context),
+              height: GetRealHeight(
+                  pixel: 67, context: context),
+              decoration: BoxDecoration(
+                  color:
+
+                  Color.fromRGBO(88, 0, 255, 1),
+                  borderRadius:
+                  BorderRadius.circular(8)),
+              child: Center(
+                  child: Image.asset('assets/images/mypage/voice_call.png')
+              )),
+        ),
+        GestureDetector(
+          onTap: () {
+            print("영상");
+            setState(() {
+              _selectedIndex = 1;
+            });
+          },
+          child: Container(
+              width: GetRealWidth(
+                  pixel: 167, context: context),
+              height: GetRealHeight(
+                  pixel: 67, context: context),
+              decoration: BoxDecoration(
+                  color:
+                  Color.fromRGBO(255, 255, 255, 0.15),
+                  borderRadius:
+                  BorderRadius.circular(8)),
+              child: Center(
+                  child: Image.asset('assets/images/mypage/video_call.png')
+              )),
+        ),
+      ],
     );
   }
 }
