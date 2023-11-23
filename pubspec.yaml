@@ -36,8 +36,7 @@ dependencies:
   intl: ^0.18.1
   flutter_dotenv: ^5.1.0
   shared_preferences: ^2.2.1
-  
-  
+  webview_flutter: ^4.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
