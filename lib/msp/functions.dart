@@ -120,7 +120,8 @@ class _ToggleButtonsSampleState extends State<ToggleButtonsSample> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // ToggleButtons with a single selection.
               Text('Single-select', style: theme.textTheme.titleSmall),
