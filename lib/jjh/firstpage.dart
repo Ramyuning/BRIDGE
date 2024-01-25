@@ -80,6 +80,7 @@ class _FirstPageState extends State<FirstPage> {
                   borderRadius: BorderRadius.circular(27)),
               child: InkWell(
                 onTap: () async {
+                  // print("눌리긴함");
                   await kako()
                       ? Navigator.push(
                           context,

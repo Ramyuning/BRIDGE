@@ -13,6 +13,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'generator_class/sp_helper.dart';
+
 // ignore: camel_case_types, must_be_immutable
 class Followed_creator extends StatelessWidget {
   late double height_PX;
@@ -59,53 +61,58 @@ class MyPage_user extends StatefulWidget {
 }
 
 class _MyPage_userState extends State<MyPage_user> {
+  final SPHelper helper = SPHelper();
   Future<Map> fetchInfo(env) async {
 //     /// 이곳은 accesstoken과 url을 가져오는 곳입니다! 혼자테스트할때는 지워주세요!
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     final String? accessToken = prefs.getString('access_token');
-//     String user_info_url = dotenv.get(env);
-//     final url = Uri.parse(user_info_url);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? accessToken = prefs.getString('access_token');
+    String user_info_url = dotenv.get(env);
+    final url = Uri.parse(user_info_url);
 
-//     /// 이곳은 네트워크 통신을 하여 json을 가져오는 곳입니다 ///////
-//     final jsonString = await http.get(
+    /// 이곳은 네트워크 통신을 하여 json을 가져오는 곳입니다 ///////
+    final jsonString = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer ${accessToken}",
+      },
+    );
+
+//   http.Response jsonString = await http.post(
 //       url,
-//       headers: {
-//         "Authorization": "Bearer ${accessToken}",
-//       },
-//     );
-
-// //   http.Response jsonString = await http.post(
-// //       url,
-// //       headers: {'Content-Type': 'application/json',
-// //   "Authorization": "Bearer ${accessToken}"
-// // },
-// //   );
-//     if (jsonString.statusCode == 200) {
-//       //만약 서버가 ok응답을 반환하면, json을 파싱합니다
-//       // print('백엔드쪽에서 응답 완료.');
-//       var jsonstring = utf8.decode(jsonString.bodyBytes);
-//       print(json.decode(jsonString.body));
-//       Map jsonMaps = jsonDecode(jsonstring);
-//       // List<User_Info> jsonLists =
-//       //     jsonMaps.map((dynamic item) => User_Info.fromJson(item)).toList();
-//       return jsonMaps;
-//       // return Info.fromJson(json.decode(response.body));
-//     } else {
-//       //만약 응답이 ok가 아니면 에러를 던집니다.
-//       throw Exception('status code = ${jsonString.statusCode} ');
-//     }
+//       headers: {'Content-Type': 'application/json',
+//   "Authorization": "Bearer ${accessToken}"
+// },
+//   );
+    if (jsonString.statusCode == 200) {
+      //만약 서버가 ok응답을 반환하면, json을 파싱합니다
+      // print('백엔드쪽에서 응답 완료.');
+      var jsonstring = utf8.decode(jsonString.bodyBytes);
+      // print(json.decode(jsonString.body));
+      Map jsonMaps = jsonDecode(jsonstring);
+      // List<User_Info> jsonLists =
+      //     jsonMaps.map((dynamic item) => User_Info.fromJson(item)).toList();
+      return jsonMaps;
+      // return Info.fromJson(json.decode(response.body));
+    } else {
+      //만약 응답이 ok가 아니면 에러를 던집니다.
+      throw Exception('status code = ${jsonString.statusCode} ');
+    }
     //// 혼자 테스트한곳 //////
-    String jsonString =
-        await rootBundle.loadString('assets/testjson/follow_list.json');
-    List jsonMaps = jsonDecode(jsonString);
+//     String jsonString =
+//         await rootBundle.loadString('assets/testjson/follow_list.json');
+//     List jsonMaps = jsonDecode(jsonString);
 
-    // Follow_json follow_json = Follow_json.fromJson(jsonMaps);
-    return {
-    "nickname" : "뭄섬핑",
-    "id": 2,
-    "email": "test@pusan.ac.kr"
-};
+//     // Follow_json follow_json = Follow_json.fromJson(jsonMaps);
+//     return {
+//     "nickname" : "뭄섬핑",
+//     "id": 2,
+//     "email": "test@pusan.ac.kr"
+// };
     //// 여기까지 남겨두기 //////
+  }
+
+  Future init() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 
   double GetRealWidth({
@@ -124,26 +131,22 @@ class _MyPage_userState extends State<MyPage_user> {
     double PX = MediaQuery.of(context).size.height / 844;
     return pixel * PX;
   }
-  Offset? _getOffset() {
-    if (_sizedboxKey.currentContext != null) {
-      final RenderBox renderBox =
-          _sizedboxKey.currentContext!.findRenderObject() as RenderBox;
-      Offset offset = renderBox.localToGlobal(Offset.zero);
-      print("안뇽");
-      return offset;
-    }
-  }
+  // Offset? _getOffset() {
+  //   final RenderBox renderBox = _sizedboxKey.currentContext?.findRenderObject() as RenderBox;
+  //   final Offset offset = renderBox.localToGlobal(Offset.zero);
+  // }
 
   Future<Map>? info;
   @override
   void initState() {
     // TODO: implement initState
+    helper.init();
     super.initState();
     info = fetchInfo("myinfo");
     // WidgetsBinding.instance!.addPostFrameCallback((_) {
-    //   setState(() {
-    //     offset = _getOffset();
-    //   });
+    //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+    //   this._getOffset();
+    // });
     // }
     // );
   }
@@ -153,13 +156,16 @@ class _MyPage_userState extends State<MyPage_user> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         body: Center(
       child: FutureBuilder(
         //통신데이터 가져오기
         future: info,
         builder: (context, snapshot) {
+          
           if (snapshot.hasData) {
-            print(snapshot.data);
+            // print(snapshot.data);
+            // offset = _getOffset();
             // print(snapshot.data.toString());
             print("성공적");
             return buildColumn(snapshot);
@@ -324,10 +330,11 @@ class _MyPage_userState extends State<MyPage_user> {
                       borderRadius: BorderRadius.circular(
                           GetRealHeight(pixel: 30, context: context)),
                       child: Container(
-                        width: double.infinity,
-                        // height: MediaQuery.of(context).size.height - offset!.dx, // 이거 수정
+                        width: MediaQuery.of(context).size.width,
+                        // height: MediaQuery.of(context).size.height, // 이거 수정
                         height: GetRealHeight(pixel: 687.5, context: context),
                         child: ListView(
+                          
                           physics: BouncingScrollPhysics(
                               decelerationRate: ScrollDecelerationRate.fast),
                           padding: EdgeInsets.zero,

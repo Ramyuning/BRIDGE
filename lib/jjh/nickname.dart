@@ -3,11 +3,15 @@ import 'dart:convert';
 import 'package:bridge/jjh/finish_page.dart';
 import 'package:bridge/jjh/date.dart';
 import 'package:bridge/jjh/datelist.dart';
+import 'package:bridge/jjh/generator_class/sp_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
+
+
 
 class InputNickName extends StatefulWidget {
   const InputNickName({super.key});
@@ -26,6 +30,7 @@ class _InputNickNameState extends State<InputNickName>
   late AnimationController _month_animation_controller;
   late Animation<double> _day_animation;
   late AnimationController _day_animation_controller;
+
 
   /// animation
 
@@ -59,6 +64,12 @@ class _InputNickNameState extends State<InputNickName>
       //무조건 트루임 ㅇㅇ
     }
   }
+  String getToday() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String strToday = formatter.format(now);
+    return strToday;
+  }
 
   Future<bool> save(context) async {
     final url = Uri.parse(autherization_http);
@@ -87,6 +98,9 @@ class _InputNickNameState extends State<InputNickName>
       headers: {'Content-Type': 'application/json',"Authorization": "Bearer ${access_token}"},
       body: body,
     );
+    await prefs.setString('nickname', nickname);
+    await prefs.setString('birthday', selectedyear +"-"+ selectedmonth +"-"+ selectedday);
+    await prefs.setString('register_day', getToday());
     // print();
     if (res.statusCode== 200) {
       return Future<bool>.value(true);
@@ -172,7 +186,7 @@ class _InputNickNameState extends State<InputNickName>
       // print("${focusnode1.hasFocus}");
     });
   }
-
+  
   String selectedmonth = "01";
   String selectedday = "01";
   @override

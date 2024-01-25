@@ -31,15 +31,15 @@ Future _insave(token) async {
       body: body,
     );
     // print();
-    print(res.body.runtimeType);
+    // print(res.body.runtimeType);
     Map<String, dynamic> reslist = json.decode(res.body);
-    print(reslist.runtimeType);
-    print(reslist["access_token"]);
+    // print(reslist.runtimeType);
+    // print(reslist["access_token"]);
     await prefs.setString('access_token', reslist["access_token"]);
     await prefs.setString('refresh_token', reslist["refresh_token"]);
     // Map<String, dynamic> payload = json.decode(token);
-    print(res.body);
-    print(res.statusCode);
+    // print(res.body);
+    // print(res.statusCode);
   }
 
 kako () async{

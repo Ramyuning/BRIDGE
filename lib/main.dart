@@ -20,6 +20,6 @@ void main() async{
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyPage_user(),
+    home: FirstPage(),
   ));
 }
